@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Page - Student Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <!-- Student List Section -->
+        <div class="mb-5">
+            <h1 class="text-center">Students</h1>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Enrolled in</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>{{ ', '.join(student.courses) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="mt-4">Add Student</h2>
+            <form action="/add-student" method="POST">
+                <div class="mb-3">
+                    <label for="student-name" class="form-label">Name:</label>
+                    <input type="text" id="student-name" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="student-email" class="form-label">Email:</label>
+                    <input type="email" id="student-email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="student-courses" class="form-label">Courses (comma-separated IDs):</label>
+                    <input type="text" id="student-courses" name="course_ids" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Student</button>
+            </form>
+        </div>
+
+        <!-- Course List Section -->
+        <div class="mb-5">
+            <h1 class="text-center">Courses</h1>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Number of Enrolled Students</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        <tr>
+                            <td>{{ course.name }}</td>
+                            <td>{{ course.enrollment_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="mt-4">Add Course</h2>
+            <form action="/add-course" method="POST">
+                <div class="mb-3">
+                    <label for="course-name" class="form-label">Course Name:</label>
+                    <input type="text" id="course-name" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="course-id" class="form-label">Course ID:</label>
+                    <input type="text" id="course-id" name="course_id" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Add Course</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
